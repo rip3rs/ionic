@@ -14,6 +14,8 @@ import { obj } from 'through2';
 import { DIST_BUILD_UMD_BUNDLE_ENTRYPOINT, DIST_BUILD_ROOT, DIST_BUNDLE_ROOT, DIST_BUILD_FESM_BUNDLE_ENTRYPOINT, PROJECT_ROOT, SCRIPTS_ROOT, SRC_ROOT } from '../constants';
 import { compileSass, copyFonts, createTimestamp, setSassIonicVersion, writePolyfills } from '../util';
 
+import { ionicRollupFesmPlugin } from '../utils/ionic-rollup-fesm-plugin';
+
 var promptAnswers;
 
 // Nightly: releases a nightly version
@@ -274,7 +276,8 @@ task('release.createFesmBundle', (done: Function) => {
         jsnext: true,
         main: true
       }),
-      commonjs()
+      commonjs(),
+      ionicRollupFesmPlugin()
     ]
   }).then((bundle) => {
     return bundle.write({
