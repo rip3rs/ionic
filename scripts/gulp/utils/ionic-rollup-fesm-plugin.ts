@@ -7,11 +7,19 @@ export function ionicRollupFesmPlugin() {
     transform(sourceText: string, sourcePath: string) {
       const fileContent = readFileSync(sourcePath);
 
-      const modifiedFileContent = `/* ${sourcePath} */ \n ${fileContent}`;
+      if (sourcePath.includes('components')) {
+        // need to add a comment as this is a component
+        const modifiedFileContent = `/* ${sourcePath} */ \n ${fileContent}`;
+        return {
+          code: modifiedFileContent
+        };
+      } else {
+        // not a component, just return
+        return {
+          code: fileContent
+        };
+      }
 
-      return {
-        code: modifiedFileContent
-      };
     }
   };
 };
