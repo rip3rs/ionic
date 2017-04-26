@@ -9,7 +9,7 @@ export function ionicRollupFesmPlugin() {
 
       if (sourcePath.includes('components')) {
         // need to add a comment as this is a component
-        const modifiedFileContent = `/* ${sourcePath} */ \n ${fileContent}`;
+        const modifiedFileContent = `/* ${sourcePath} */ \n ${fileContent} /* ${sourcePath} */ \n`;
         return {
           code: modifiedFileContent
         };
